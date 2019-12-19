@@ -1,0 +1,143 @@
+<<<<<<< HEAD
+# General File
+bin/
+log/
+uploads/
+*.log
+*.temp
+*.backup
+*.bak
+*.apk
+*.ap_
+
+# Mac DS_Store File
+.DS_Store
+
+# Windows Thumbnail.db
+Thumbs.db
+
+# Git fetch script
+git-fetch.cmd
+git-fetch.sh
+
+# Generated Files
+obj/
+bin/
+gen/
+target/
+build/
+
+# VIM
+*.swp
+*~
+
+# Visual Studio Code
+.vscode/
+
+# Python
+.env2
+.env3
+
+# NodeJS
+dist/
+node_modules/
+package-lock.json
+
+# Java class files
+*.class
+
+# Java local configuration file (sdk path, etc)
+local.properties
+application-dev.properties
+
+# Java Gradle
+.gradle
+
+# Android File
+app/build
+src/unpackage/release
+*.pkg
+*.dex
+
+# Eclipse
+.settings
+.classpath
+.project
+
+# IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+=======
+# General File
+bin/
+log/
+uploads/
+*.log
+*.temp
+*.backup
+*.bak
+*.apk
+*.ap_
+
+# Mac DS_Store File
+.DS_Store
+
+# Windows Thumbnail.db
+Thumbs.db
+
+# Git fetch script
+git-fetch.cmd
+git-fetch.sh
+
+# Generated Files
+obj/
+bin/
+gen/
+target/
+build/
+
+# VIM
+*.swp
+*~
+
+# Visual Studio Code
+.vscode/
+
+# Python
+.env2
+.env3
+
+# NodeJS
+dist/
+node_modules/
+package-lock.json
+
+# Java class files
+*.class
+
+# Java local configuration file (sdk path, etc)
+local.properties
+application-dev.properties
+
+# Java Gradle
+.gradle
+
+# Android File
+app/build
+src/unpackage/release
+*.pkg
+*.dex
+
+# Eclipse
+.settings
+.classpath
+.project
+
+# IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+>>>>>>> 5d505ba3bb1963520aa6f91011ccbc3c55567bd4

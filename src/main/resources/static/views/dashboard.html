@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>SpringBootDemo</title>
+    <script src="/static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/layui/layui.all.js" type="text/javascript"></script>
+    <link href="/static/layui/css/layui.css" rel="stylesheet"/>
+</head>
+
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">用户管理系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item"><a href="javascript:">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">邮件管理</a>
+                    </dd>
+                    <dd>
+                        <a href="">消息管理</a>
+                    </dd>
+                    <dd>
+                        <a href="">授权管理</a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <span id="username"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">基本资料</a>
+                    </dd>
+                    <dd>
+                        <a href="">安全设置</a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs" onclick="exit()">退出系统</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:">所有商品</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:">列表一</a></dd>
+                        <dd><a href="javascript:">列表二</a></dd>
+                        <dd><a href="javascript:">列表三</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:">列表一</a></dd>
+                        <dd><a href="javascript:">列表二</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">云市场</a></li>
+                <li class="layui-nav-item"><a href="">发布商品</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div>
+            <div align="center">
+                <table class="layui-table" id="users" lay-filter="users"></table>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © Test
+    </div>
+</div>
+</body>
+
+<div class="layui-row" id="addUser">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block" align="left">
+                <input type="radio" name="sex" value="男" title="男" checked>
+                <input type="radio" name="sex" value="女" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="addUser">添加</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="layui-row" id="updateUser">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-block">
+                <input type="text" id="updateId" name="id" required readonly="readonly" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" id="updateUsername" name="username" required lay-verify="required"
+                       placeholder="请输入用户名"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" id="updatePassword" name="password" required lay-verify="required"
+                       placeholder="请输入密码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block" align="left">
+                <input id="man" type="radio" name="sex" value="男" title="男" checked>
+                <input id="woman" type="radio" name="sex" value="女" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="updateUser">更新</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add">添加</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/javascript">
+    //隐藏添加、更新布局
+    $("#addUser").hide();
+    $("#updateUser").hide();
+    //获取当前登录用户信息
+    $.ajax({
+        type: "get",
+        contentType: "application/json",
+        url: "/manager/getCurManager",
+        success: function (data) {
+            $("#username").html(data.username);
+        }
+    });
+
+    //初始化layer
+    layui.use("layer", function () {
+        layer = layui.layer;
+    });
+
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use("element", function () {
+        element = layui.element;
+    });
+
+    //初始化table
+    layui.use("table", function () {
+        table = layui.table;
+        //加载table数据
+        table.render({
+            "elem": "#users",
+            "url": "/user/getUsers",
+            "cellMinWidth": 80,
+            "cols": [
+                [
+                    {"field": "id", "width": 100, "title": "ID", "sort": true, "align": "center"},
+                    {"field": "username", "width": 100, "title": "用户名", "align": "center"},
+                    {"field": "password", "width": 100, "title": "密码", "align": "center"},
+                    {"field": "sex", "width": 100, "title": "性别", "align": "center"},
+                    {
+                        "field": "operate",
+                        "width": 178,
+                        "title": "操作",
+                        "fixed": "right",
+                        "toolbar": "#bar",
+                        "align": "center"
+                    }
+                ]
+            ],
+            page: true
+        });
+        //监听工具条
+        table.on("tool(users)", function (obj) {
+            var data = obj.data;
+            if (obj.event === "add") {
+                layer.open({
+                    type: 1,
+                    title: "添加用户",
+                    content: $("#addUser"),
+                    cancel: function () {
+                        $("#addUser").hide();
+                    }
+                });
+            } else if (obj.event === "del") {
+                layer.confirm("确定删除该用户吗？", function (index) {
+                    deleteUser(data.id);
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === "edit") {
+                $("#updateId").val(data.id);
+                $("#updateUsername").val(data.username);
+                $("#updatePassword").val(data.password);
+                layer.open({
+                    type: 1,
+                    title: "更新用户",
+                    content: $("#updateUser"),
+                    cancel: function () {
+                        $("#updateUser").hide();
+                    }
+                });
+            }
+        });
+    });
+
+    layui.use("form", function () {
+        form = layui.form;
+        form.render();//刷新表单
+        //添加用户
+        form.on("submit(addUser)", function (data) {
+            addUser(data.field);
+        });
+        //更新用户
+        form.on("submit(updateUser)", function (data) {
+            updateUser(data.field);
+            $("#updateUser").hide();
+        });
+    });
+
+    function addUser(user) {
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/user/add",
+            data: JSON.stringify(user),
+            success: function (data) {
+                if (data) {
+                    layer.open({
+                        content: "添加成功",
+                        yes: function (index) {
+                            layer.close(index); //如果设定了yes回调，需进行手工关闭
+                        }
+                    });
+                } else {
+                    layer.open({
+                        content: "添加失败",
+                        yes: function (index) {
+                            layer.close(index); //如果设定了yes回调，需进行手工关闭
+                        }
+                    });
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    content: "添加失败",
+                    yes: function (index) {
+                        layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    }
+                });
+            }
+        });
+    }
+
+    function updateUser(user) {
+        $.ajax({
+            type: "put",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/user/update",
+            data: JSON.stringify(user),
+            success: function (data) {
+                if (data) {
+                    layer.open({
+                        content: "更新成功",
+                        yes: function (index) {
+                            layer.close(index); //如果设定了yes回调，需进行手工关闭
+                        }
+                    });
+                } else {
+                    layer.open({
+                        content: "更新失败",
+                        yes: function (index) {
+                            layer.close(index); //如果设定了yes回调，需进行手工关闭
+                        }
+                    });
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    content: "更新失败",
+                    yes: function (index) {
+                        layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    }
+                });
+            }
+        });
+    }
+
+    function deleteUser(id) {
+        $.ajax({
+            type: "delete",
+            dataType: "json",
+            url: "/user/delete/" + id,
+            success: function (data) {
+                if (data) {
+                    layer.open({
+                        content: "删除成功",
+                        yes: function (index) {
+                            layer.close(index); //如果设定了yes回调，需进行手工关闭
+                        }
+                    });
+                } else {
+                    layer.open({
+                        content: "删除失败",
+                        yes: function (index) {
+                            layer.close(index); //如果设定了yes回调，需进行手工关闭
+                        }
+                    });
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    content: "删除失败",
+                    yes: function (index) {
+                        layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    }
+                });
+            }
+        });
+    }
+
+    function exit() {
+        layer.confirm("确定退出吗？", function (index) {
+            window.location = "/manager/exit";
+        });
+    }
+
+</script>
+</html>
