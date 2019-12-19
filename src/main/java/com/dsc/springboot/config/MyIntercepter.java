@@ -1,6 +1,5 @@
 package com.dsc.springboot.config;
 
-import com.dsc.springboot.model.Manager;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -8,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @author DSC
  * @description 登录拦截器
  * @date 2019/12/17 17:12
- * @author DSC
  */
 public class MyIntercepter implements HandlerInterceptor {
     /**

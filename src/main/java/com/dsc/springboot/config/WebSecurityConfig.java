@@ -1,13 +1,9 @@
 package com.dsc.springboot.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author DSC
@@ -26,7 +22,7 @@ public class WebSecurityConfig extends WebMvcConfigurationSupport {
 //        addInterceptor.excludePathPatterns("/login");
 //        addInterceptor.excludePathPatterns("/manager/**");
 //        addInterceptor.excludePathPatterns("/test/**");
-//        addInterceptor.excludePathPatterns("/static/**");
+//        addInterceptor.excludePathPatterns("/templates/**");
     }
 
     @Override
@@ -40,7 +36,7 @@ public class WebSecurityConfig extends WebMvcConfigurationSupport {
         // 访问 /uploads/** 的路由映射到 file:uploads/ 目录下
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:uploads/");
         // 静态文件位置
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/");
         super.addResourceHandlers(registry);
     }
 }

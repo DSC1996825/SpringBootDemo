@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>管理员登录-用户管理系统</title>
-    <script src="/static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="/static/layui/layui.all.js" type="text/javascript"></script>
-    <link href="/static/layui/css/layui.css" rel="stylesheet"/>
+    <script src="/templates/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/templates/layui/layui.all.js" type="text/javascript"></script>
+    <link href="/templates/layui/css/layui.css" rel="stylesheet"/>
 </head>
-<body style="background:url(/static/images/login/login.jpg) no-repeat;background-size: 100%">
+<body style="background:url(/templates/images/login/login.jpg) no-repeat;background-size: 100%">
 <div class="layui-container" style="margin-top:25%;">
     <div class="layui-row">
         <form class="layui-form layui-form-pane" action="" method="post">
@@ -43,21 +43,20 @@
             type: 'post',
             contentType: "application/json",
             dataType: 'json',
-            url: '/manager/login',
+            url: '/manager/auth',
             data: JSON.stringify(manager),
             aysnc: false,
             success: function (res) {
-                console.log(res);
-                // if (res) {
-                //   window.location = "/view/dashboard.html";
-                // } else {
-                //   layer.open({
-                //     content: '用户名或密码错误',
-                //     yes: function (index) {
-                //       layer.close(index); //如果设定了yes回调，需进行手工关闭
-                //     }
-                //   });
-                // }
+                if (res.code === '0') {
+                  window.location = "/home";
+                } else {
+                  layer.open({
+                    content: '用户名或密码错误',
+                    yes: function (index) {
+                      layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    }
+                  });
+                }
             }
         });
     });
