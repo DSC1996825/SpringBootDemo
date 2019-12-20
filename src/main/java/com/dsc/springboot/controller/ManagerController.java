@@ -29,15 +29,18 @@ public class ManagerController {
         return "login";
     }
 
-    @RequestMapping("/home")
-    public String home(HttpSession session) {
-        return "home";
-    }
-
     @RequestMapping("/exit")
     public String exit(HttpSession session) {
         session.removeAttribute(sessionKey);
-        return "login";
+        return "redirect:login";
+    }
+
+    @RequestMapping("/home")
+    public String home(HttpSession session) {
+        if (session.getAttribute(sessionKey) != null) {
+            return "home";
+        }
+        return "redirect:login";
     }
 
     @PostMapping("/manager/auth")
@@ -54,7 +57,8 @@ public class ManagerController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        result.setCode("-1");
+        result.setCode(-1);
+        result.setMsg("认证失败");
         return result;
     }
 
@@ -62,7 +66,12 @@ public class ManagerController {
     @ResponseBody
     public ResponseDao getCurManager(HttpSession session) {
         ResponseDao result = new ResponseDao();
-        result.setData(session.getAttribute(sessionKey));
+        Object curManager = session.getAttribute(sessionKey);
+        if (curManager != null) {
+            result.setData(curManager);
+            return result;
+        }
+        result.setCode(-1);
         return result;
     }
 
@@ -80,6 +89,5 @@ public class ManagerController {
             return "{\"result\":\"true\"}";
         }
         return "{\"result\":\"false\"}";
-
     }
 }

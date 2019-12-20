@@ -6,15 +6,15 @@ package com.dsc.springboot.dao;
  * @date 2019/12/19 19:31
  */
 public class ResponseDao {
-    String code = "0";
+    int code = 0;
     Object data = "";
     String msg = "";
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

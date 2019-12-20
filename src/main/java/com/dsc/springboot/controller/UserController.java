@@ -1,5 +1,6 @@
 package com.dsc.springboot.controller;
 
+import com.dsc.springboot.dao.ResponseDao;
 import com.dsc.springboot.model.User;
 import com.dsc.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,42 +34,47 @@ public class UserController {
     }
 
     @GetMapping("/getUser/{id}")
-    public Map<String, Object> getUser(@PathVariable("id") Integer id) {
-        resultMap.clear();
-        resultMap.put("code", 0);
-        resultMap.put("msg", "success");
-        resultMap.put("data", userService.getUserById(id));
-        return resultMap;
+    public ResponseDao getUser(@PathVariable("id") Integer id) {
+        ResponseDao responseDao = new ResponseDao();
+        responseDao.setData(userService.getUserById(id));
+        responseDao.setMsg("查询成功");
+        return responseDao;
     }
 
     @PostMapping("/add")
-    public boolean addUser(@RequestBody User user) throws Exception {
+    public ResponseDao addUser(@RequestBody User user) throws Exception {
         int i = userService.addUser(user);
-        System.out.println(i);
+        ResponseDao responseDao = new ResponseDao();
+        responseDao.setMsg("新增成功");
         if (i == 0) {
-            return false;
+            responseDao.setCode(-1);
+            responseDao.setMsg("新增失败");
         }
-        return true;
+        return responseDao;
     }
 
     @PutMapping("/update")
-    public boolean updateUser(@RequestBody User user) {
+    public ResponseDao updateUser(@RequestBody User user) {
         int i = userService.updateUser(user);
-        System.out.println(i);
+        ResponseDao responseDao = new ResponseDao();
+        responseDao.setMsg("修改成功");
         if (i == 0) {
-            return false;
+            responseDao.setCode(-1);
+            responseDao.setMsg("修改失败");
         }
-        return true;
+        return responseDao;
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deleteUser(@PathVariable("id") Integer id) {
+    public ResponseDao deleteUser(@PathVariable("id") Integer id) {
         int i = userService.deleteUser(id);
-        System.out.println(i);
+        ResponseDao responseDao = new ResponseDao();
+        responseDao.setMsg("删除成功");
         if (i == 0) {
-            return false;
+            responseDao.setCode(-1);
+            responseDao.setMsg("删除失败");
         }
-        return true;
+        return responseDao;
     }
 
     @GetMapping("/test")
