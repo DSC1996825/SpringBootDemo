@@ -13,8 +13,8 @@ public interface ManagerMapper {
 	@Select(value="select * from manager where loginName=#{loginName} and password=#{password}")
 	@Results({
 		@Result(property="id",column="id"),
-		@Result(property="loginName",column="loginName"),
-		@Result(property="username",column="username"),
+		@Result(property="loginName",column="login_name"),
+		@Result(property="username",column="user_name"),
 		@Result(property="password",column="password"),
 		@Result(property="roleId",column="role_id")
 	})

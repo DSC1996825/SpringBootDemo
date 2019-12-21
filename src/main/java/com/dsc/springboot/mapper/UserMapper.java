@@ -20,7 +20,7 @@ public interface UserMapper {
 	@Select(value="select * from user limit #{page},#{limit}")
 	@Results({
 		@Result(property="id",column="id"),
-		@Result(property="username",column="username"),
+		@Result(property="username",column="user_name"),
 		@Result(property="password",column="password"),
 		@Result(property="sex",column="sex")
 	})
@@ -29,11 +29,11 @@ public interface UserMapper {
 	@Select(value="select * from user where id=#{id}")
 	User getUserById(@Param("id") Integer id);
 	
-	@Insert(value="insert into user(username,password,sex) values(#{username},#{password},#{sex})")
+	@Insert(value="insert into user(user_name,password,sex) values(#{username},#{password},#{sex})")
 	@ResultType(value=Integer.class)
 	int addUser(User user);
 	
-	@Update(value="update user set username=#{username},password=#{password},sex=#{sex} where id=#{id}")
+	@Update(value="update user set user_name=#{username},password=#{password},sex=#{sex} where id=#{id}")
 	@ResultType(value=Integer.class)
 	int updateUser(User user);
 	
