@@ -1,6 +1,6 @@
 package com.dsc.springboot.shiro;
 
-import com.dsc.springboot.service.ManagerService;
+import com.dsc.springboot.services.ManagerService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
