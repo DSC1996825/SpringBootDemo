@@ -18,7 +18,10 @@ import org.elasticsearch.client.indices.*;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.index.reindex.UpdateByQueryRequest;
+import org.elasticsearch.script.Script;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -201,5 +204,24 @@ public class ElasticsearchUtil {
         request.setConflicts("proceed");
         // 设置查询条件，第一个参数是字段名，第二个参数是字段的值
         request.setQuery(new TermQueryBuilder("user", "kimchy"));
+//        request.setScript(new Script())
+        BulkByScrollResponse response = client.updateByQuery(request, RequestOptions.DEFAULT);
+    }
+
+    /**
+     * 删除查询的文档
+     *
+     * @param indexName   索引名称
+     * @param contentJson 文档内容json字符串
+     * @author DSC
+     * @date 2020/9/30 11:20
+     **/
+    public void deleteQueryDocument(String indexName, String contentJson) throws Exception {
+        DeleteByQueryRequest request = new DeleteByQueryRequest(indexName);
+        // 更新时版本冲突
+        request.setConflicts("proceed");
+        // 设置查询条件，第一个参数是字段名，第二个参数是字段的值
+        request.setQuery(new TermQueryBuilder("user", "kimchy"));
+        BulkByScrollResponse response = client.deleteByQuery(request, RequestOptions.DEFAULT);
     }
 }
