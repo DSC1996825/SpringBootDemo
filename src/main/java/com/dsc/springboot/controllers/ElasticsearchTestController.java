@@ -1,9 +1,12 @@
 package com.dsc.springboot.controllers;
 
-import org.elasticsearch.client.RestHighLevelClient;
+import com.dsc.springboot.utils.ElasticsearchUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,11 +19,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/elasticsearch")
 public class ElasticsearchTestController {
 
-    @Autowired
-    private RestHighLevelClient restHighLevelClient;
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping("/test")
-    public String test() {
-        return "";
+    @Autowired
+    private ElasticsearchUtil elasticsearchUtill;
+
+    @GetMapping("/createIndex")
+    public String createIndex(@RequestParam("name") String name) {
+        try {
+            elasticsearchUtill.createIndex(name);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "新增索引：" + name;
+    }
+
+    @GetMapping("/deleteIndex")
+    public String deleteIndex(@RequestParam("name") String name) {
+        try {
+            elasticsearchUtill.deleteIndex(name);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "删除索引：" + name;
     }
 }
